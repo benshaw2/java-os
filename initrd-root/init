@@ -1,0 +1,24 @@
+#!/bin/sh
+
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devtmpfs none /dev
+
+echo "Launching Java OS..."
+/bin/java-os
+
+echo "Java OS crashed or exited with code $?"
+echo "Starting emergency shell..."
+exec /bin/sh
+#!/bin/sh
+
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devtmpfs none /dev
+
+echo "Launching Java OS..."
+exec /bin/java-os
+
+# If the binary crashes, drop to shell (optional)
+echo "Java OS crashed, starting emergency shell..."
+exec sh
